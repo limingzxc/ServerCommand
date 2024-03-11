@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fabricmc.servercommand.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "EntityPlayerMPMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
