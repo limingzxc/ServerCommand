@@ -5,6 +5,9 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ICommandSender;
 import net.minecraft.src.WrongUsageException;
 
+import java.util.List;
+import java.util.Objects;
+
 public class ServerCommandSetHome extends CommandBase {
     @Override
     public String getCommandName() {
@@ -48,8 +51,16 @@ public class ServerCommandSetHome extends CommandBase {
             player.addChatMessage("You've set up five homes.");
             return;
         }
+        List<String> listHome = ((EntityPlayerMPAccessor)player).serverCommandAddon$listHomePosition();
+        for(String name: listHome) {
+            if(Objects.equals(name, arguments[0])) {
+                player.addChatMessage("This name is already occupied, please delete it before setting up your home.");
+                return;
+            }
+        }
 
-        ((EntityPlayerMPAccessor)player).serverCommandAddon$setHomePosition(arguments[0], player.posX, player.posY, player.posZ);
+        ((EntityPlayerMPAccessor)player).serverCommandAddon$setHomePosition(arguments[0], player.posX, player.posY,
+                player.posZ, player.dimension);
         player.addChatMessage("You have successfully set up home");
     }
 }

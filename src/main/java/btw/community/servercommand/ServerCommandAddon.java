@@ -2,13 +2,14 @@ package btw.community.servercommand;
 
 import btw.AddonHandler;
 import btw.BTWAddon;
+import btw.world.util.WorldData;
 import net.fabricmc.servercommand.*;
 
 public class ServerCommandAddon extends BTWAddon {
     private static ServerCommandAddon instance;
 
     private ServerCommandAddon() {
-        super("Server Command", "1.0.0", "ServerCommand");
+        super("Server Command", "1.1.0", "ServerCommand");
     }
 
     @Override
@@ -21,6 +22,10 @@ public class ServerCommandAddon extends BTWAddon {
         registerAddonCommand(new ServerCommandGoHome());
         registerAddonCommand(new ServerCommandListHome());
         registerAddonCommand(new ServerCommandDeleteHome());
+    }
+
+    public WorldData createWorldData() {
+        return super.createWorldData();
     }
 
     public static ServerCommandAddon getInstance() {

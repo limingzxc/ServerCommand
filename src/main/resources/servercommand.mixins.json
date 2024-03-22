@@ -4,7 +4,8 @@
   "package": "net.fabricmc.servercommand.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "EntityPlayerMPMixin"
+    "EntityPlayerMPMixin",
+    "ServerConfigurationManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

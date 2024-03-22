@@ -45,14 +45,23 @@ public class ServerCommandGoHome extends CommandBase {
         EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 
         double[] pos;
+        int dimension;
         try {
             pos = ((EntityPlayerMPAccessor) player).serverCommandAddon$getHomePosition(arguments[0]);
+            dimension = ((EntityPlayerMPAccessor) player).serverCommandAddon$getHomeDimension(arguments[0]);
         }
         catch (IndexOutOfBoundsException var) {
             player.addChatMessage("You didn't set up a home with that name.");
             return;
         }
+        if(player.dimension == 1 && dimension != 1) {
+            player.addChatMessage("You can't travel to dimension in The End.");
+            return;
+        }
         player.mountEntity((Entity)null);
+        if(player.dimension != dimension) {
+            player.travelToDimension(dimension);
+        }
         player.playerNetServerHandler.setPlayerLocation(pos[0], pos[1], pos[2], 0, 0);
         player.addChatMessage("You have successfully go home");
     }

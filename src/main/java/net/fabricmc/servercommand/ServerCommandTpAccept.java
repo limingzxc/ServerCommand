@@ -77,11 +77,11 @@ public class ServerCommandTpAccept extends CommandBase {
             }
         }
 
-        if (teleportingPlayer.worldObj != acceptingPlayer.worldObj)
-        {
-            notifyAdmins(sender, "commands.tp.notSameDimension", new Object[0]);
-            return;
-        }
+//        if (teleportingPlayer.worldObj != acceptingPlayer.worldObj)
+//        {
+//            notifyAdmins(sender, "commands.tp.notSameDimension", new Object[0]);
+//            return;
+//        }
 
         String teleportingPlayerName = teleportingPlayer.getEntityName();
         String acceptingPlayerName = acceptingPlayer.getEntityName();
@@ -92,9 +92,17 @@ public class ServerCommandTpAccept extends CommandBase {
             acceptingPlayer.addChatMessage("Teleported "+teleportingPlayerName+" to you.");
             teleportingPlayer.addChatMessage("Teleported you to "+acceptingPlayerName+".");
 
+            if(teleportingPlayer.dimension == 1 && acceptingPlayer.dimension != 1) {
+                teleportingPlayer.addChatMessage("You can't travel to dimension in The End.");
+                return;
+            }
+
             teleportingPlayer.mountEntity((Entity)null);
+            if (teleportingPlayer.dimension != acceptingPlayer.dimension) {
+                teleportingPlayer.travelToDimension(acceptingPlayer.dimension);
+            }
             teleportingPlayer.playerNetServerHandler.setPlayerLocation(acceptingPlayer.posX, acceptingPlayer.posY, acceptingPlayer.posZ, acceptingPlayer.rotationYaw, acceptingPlayer.rotationPitch);
-            ((EntityPlayerMPAccessor)acceptingPlayer).serverCommandAddon$setTpaRequestName(""); // prevents the accepter from spam-teleporting
+            ((EntityPlayerMPAccessor) acceptingPlayer).serverCommandAddon$setTpaRequestName(""); // prevents the accepter from spam-teleporting
 
         } else {
             acceptingPlayer.addChatMessage("No active teleport requests found from "+teleportingPlayerName+".");

@@ -55,11 +55,11 @@ public class ServerCommandTpRequest extends CommandBase {
                 throw new PlayerNotFoundException();
             }
 
-            if (targetPlayer.worldObj != teleportingPlayer.worldObj)
-            {
-                notifyAdmins(sender, "commands.tp.notSameDimension", new Object[0]);
-                return;
-            }
+//            if (targetPlayer.worldObj != teleportingPlayer.worldObj)
+//            {
+//                notifyAdmins(sender, "commands.tp.notSameDimension", new Object[0]);
+//                return;
+//            }
 
             if(Objects.equals(targetPlayer.getEntityName(), teleportingPlayer.getEntityName()))
             {
